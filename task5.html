@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 5</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      body {
+        background-color: #405468;
+        font-size: 20px;
+        font-family: 'Times New Roman', Times, serif;
+      }
+      .header {
+        max-width: 1425px;
+        margin: 0 auto;
+        background-color: #00bd82;
+        padding: 20px;
+        text-align: center;
+        border-radius: 10px;
+        font-size: 30px;
+      }
+      .header > p {
+        font-size: 24px;
+      }
+      .content {
+        max-width: 1435px;
+        margin: 10px auto;
+        background-color: #00bd82;
+        border-radius: 10px;       
+        padding: 15px;
+        font-size: 24px;
+      }
+      .btn {
+        max-width: 300px;
+        margin: 30px auto;
+      }
+      .button {
+        display: block;
+        text-decoration: none;
+        color: black;
+        background-color: #405468;
+        margin: 15px 25px;
+        text-align: center;
+        font-size: 22px;
+        padding: 10px 20px;
+        border-radius: 7px;
+      }
+      .button:hover {
+        background-color: lightgrey;
+      }
+
+      .link {
+        text-decoration: none;
+        color: black;
+      }
+      .link:hover {
+        color: black;
+        font-size: 30px;
+        font-weight: bold;
+      }
+      .logo {
+        width: 60px;
+        border-radius: 50%;
+        margin: 4px 10px 4px 10px;
+      }
+      .logoContainer {
+        display: flex;
+      }
+      .title {
+        font-size: 24px;
+        margin: 0;
+      }
+     
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div>Задача 5</div>
+      <p>
+        Самостійно сформуйте масив даних та виведіть фрагмент на
+          зразок поданого (дані не обов’язково повинні співпадати)
+      </p>
+      <p>Відповідь до задачі:</p>
+    </div>
+    <div class="content">      
+      <div id="app">
+        <div v-for="site in sitesList" :key="site">
+          <a class="link" :href="site.link">
+            <div class="logoContainer">
+              <div>
+                <img class="logo" :src="site.imgSrc" />
+              </div>
+              <div>
+                <p>{{site.shortTitle}}</p>
+                <p>{{site.link}}</p>
+              </div>
+            </div>
+            <p class="title">{{site.title}}</p>
+          </a>
+          <p>{{site.description}}</p>
+        </div>
+      </div>
+  
+      <script>
+        const { createApp } = Vue
+  
+        const app = createApp({
+          data() {
+            return {
+              sitesList: [
+                {
+                  imgSrc: './img/img8.png',
+                  shortTitle: 'rozetka.com.ua',
+                  link: 'https://rozetka.com.ua/ua/notebooks/c80004/?gad_source=1&gclid=CjwKCAiA3aeqBhBzEiwAxFiOBuDk3m1QlsI252SbGhWNa6Vnpa8Vm0-_7_Cy0luQQyoi02fgp0uwgxoCf0MQAvD_BwE',
+                  title: 'Купити ноутбук - в Rozetka',
+                  description:
+                    'Доступні ціни на якісні ноутбуки. Доставка по Україні. Замовляйте! Доставка без вихідних. Відгуки покупців. Обмін/Повернення товарів. Офіційна Гарантія.',
+                },
+                {
+                  imgSrc: './img/img9.png',
+                  shortTitle: 'Вікіпедія',
+                  link: 'https://uk.wikipedia.org/wiki/Шевченко_Тарас_Григорович',
+                  title: 'Шевченко Тарас Григорович',
+                  description:
+                    'Тара́с Григо́рович Шевче́нко ( 25 лютого (9 березня), с. Моринці, Київська губернія, Російська імперія (нині Звенигородський район, ...',
+                },
+                {
+                  imgSrc: './img/img10.png',
+                  shortTitle: 'Автоцентр',
+                  link: 'https://www.autocentre.ua/new/test-drive/testdrayv-skoda-octavia-a7-vse-genialnoe-prosto-266860.html',
+                  title: 'Тест-драйв Skoda Octavia A7',
+                  description:
+                    'Тест-драйв Шкода Октавия А7, самой популярной модели марки. · В теле · Впервые в Octavia появилась кнопка запуска мотора. · Так будет выглядеть система отопления и ...',
+                },
+                {
+                  imgSrc: './img/img11.png',
+                  shortTitle: 'GECID.com',
+                  link: 'https://ua.gecid.com/nouts/geforce_rtx_4070_laptop/',
+                  title: 'Тест мобільної графіки GeForce RTX 4070 Laptop',
+                  description:
+                    "Тест мобільної графіки GeForce RTX 4070 Laptop у ноутбуці GIGABYTE AORUS 15 BSF · Intel Core i7-13700H. · 16 ГБ оперативної пам'яті DDR5 ...",
+                },
+              ],
+            }
+          },
+  
+          methods: {},
+          computed: {},
+        }).mount('#app')
+      </script>
+       <div class="btn">
+        <a class="button" href="./index.html">На головну</a>
+      </div>
+  </body>
+</html>

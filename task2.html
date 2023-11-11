@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 2</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      body {
+        background-color: #405468;
+        font-size: 20px;
+        font-family: 'Times New Roman', Times, serif;
+      }
+      .header {
+        max-width: 1425px;
+        margin: 0 auto;
+        background-color: #00bd82;
+        padding: 20px;
+        text-align: center;
+        border-radius: 10px;
+        font-size: 30px;
+      }
+      .header > p {
+        font-size: 24px;
+      }
+      .content {
+        max-width: 900px;
+        margin: 10px auto;
+        background-color: #00bd82;
+        border-radius: 10px;
+        text-align: center;
+        padding: 5px 0;
+        font-size: 24px;
+      }
+      .btn {
+        max-width: 300px;
+        margin: 30px auto;
+      }
+      .button {
+        display: block;
+        text-decoration: none;
+        color: black;
+        background-color: #405468;
+        margin: 15px 25px;
+        text-align: center;
+        font-size: 22px;
+        padding: 10px 20px;
+        border-radius: 7px;
+      }
+      .button:hover {
+        background-color: lightgrey;
+      }
+      .businessClass {
+        background: url('./img/img2.jpg') no-repeat;
+        height: 350px;
+        margin-left: 150px;
+        
+      }
+      .economClass {
+        background: url('./img/img3.jpg') no-repeat;
+        height: 700px;
+        max-width: 650px;
+        margin-left: 125px;
+        
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div>Задача 2</div>
+      <p>
+        З випадаючого списку вибираємо клас квитка у літаку. Якщо
+        <br />
+        1. бізнес - виводимо елементи для вибору газети та коньяку (якщо
+        вибрано коньяк, то запропонувати закуску (так/ні)), на фоні зображення
+        бізнес кают <br />
+        2. економ – виводимо елементи для вибору типу пива і чипсів, на фоні
+        хмарки. <br />
+      </p>
+    </div>
+    <div class="content">
+      <p>Відповідь до задачі:</p>
+      <div id="app">
+        <div :class="showBackground">
+          <label>
+            Виберіть клас квитка:
+            <select v-model="ticketSelection">
+              <option selected disabled hidden></option>
+              <option value="business">Бізнес</option>
+              <option value="econom">Економ</option>
+            </select>
+          </label>
+          <br />
+          <br />
+          <div v-if="ticketSelection === 'business'">
+            <label
+              >Газета
+              <input type="checkbox" name="newspaper" v-model="newspaper" />
+            </label>
+            <div>
+              <label
+                >Коньяк <input type="checkbox" value="booze" v-model="booze"
+              /></label>
+            </div>
+            <div v-if="booze">
+              <p>Закуска</p>
+              <label>
+                Так
+                <input type="radio" value="true" v-model="snack" />
+                Ні
+                <input type="radio" value="false" v-model="snack" />
+              </label>
+            </div>
+          </div>
+          <div v-if="ticketSelection === 'econom'">
+            <label
+              >Пиво
+              <select v-model="booze">
+                <option selected disabled hidden></option>
+                <option value="dark">Темне</option>
+                <option value="light">Світле</option>
+              </select>
+            </label>
+            <div>
+              <label>
+                Чіпси
+                <select v-model="snack">
+                  <option selected disabled hidden></option>
+                  <option value="Lyuks">Люкс</option>
+                  <option value="Chipsters">Chipsters</option>
+                  <option value="Pringles">Pringles</option>
+                </select>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <script>
+        const { createApp } = Vue
+  
+        const app = createApp({
+          data() {
+            return {
+              ticketSelection: null,
+              newspaper: null,
+              booze: null,
+              snack: null,
+            }
+          },
+          computed: {
+            showBackground() {
+              let selectedClass
+              if (this.ticketSelection === 'business')
+                selectedClass = 'businessClass'
+              else if (this.ticketSelection === 'econom')
+                selectedClass = 'economClass'
+              return selectedClass
+            },
+          },
+        }).mount('#app')
+      </script>
+       <div class="btn">
+        <a class="button" href="./index.html">На головну</a>
+      </div>
+  </body>
+</html>

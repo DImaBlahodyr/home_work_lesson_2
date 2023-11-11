@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 5</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      body {
+        background-color: #405468;
+        font-size: 20px;
+        font-family: 'Times New Roman', Times, serif;
+      }
+      .header {
+        max-width: 1425px;
+        margin: 0 auto;
+        background-color: #00bd82;
+        padding: 20px;
+        text-align: center;
+        border-radius: 10px;
+        font-size: 30px;
+      }
+      .header > p {
+        font-size: 24px;
+      }
+      .content {
+        max-width: 900px;
+        margin: 10px auto;
+        background-color: #00bd82;
+        border-radius: 10px;
+        text-align: center;
+        padding: 5px 0;
+        font-size: 24px;
+      }
+      .btn {
+        max-width: 300px;
+        margin: 30px auto;
+      }
+      .button {
+        display: block;
+        text-decoration: none;
+        color: black;
+        background-color: #405468;
+        margin: 15px 25px;
+        text-align: center;
+        font-size: 22px;
+        padding: 10px 20px;
+        border-radius: 7px;
+      }
+      .button:hover {
+        background-color: lightgrey;
+      }
+
+      .table {
+        display: flex;
+        border: 2px solid black;
+        width: 700px;
+        margin-left: 100px;
+      }
+      .column {
+        border: 2px solid black;
+        margin: 20px;
+        padding: 10px;
+      }
+      .button {
+        margin-left: 20px;
+      }
+     
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div>Задача 6</div>
+      <p>
+        На кухню поступають замовлення. Спочатку ми додаємо
+        їх у список “Очікують на виконання”, якщо повар береться робити —
+        замовлення переходить у список “Виконуються”, якщо замовлення виконано
+        — переходить у список “Готові до виносу”. Якщо натиснути на “Подано” -
+        страва зникає з таблиці
+      </p>
+      <p>Відповідь до задачі:</p>
+    </div>
+    <div class="content">
+      
+      <div id="app">
+        <div>
+          <label>
+            Нова замовлена страва:
+            <input type="text" v-model="order" />
+          </label>
+          <button @click="addOrder">Додати</button>
+        </div>
+        <br />
+  
+        <div class="table">
+          <div class="column">
+            <h3>Очікують на виконання</h3>
+            <div v-for="(order, index) in waitingList" :key="index">
+              <label>{{order.name}}</label>
+              <button @click="inProcess(index)" class="button">Готувати</button>
+            </div>
+          </div>
+  
+          <div class="column">
+            <h3>Виконуються</h3>
+            <div v-for="(order, index) in processingList" :key="index">
+              <label>{{order.name}}</label>
+              <button @click="completedOrder(index)" class="button">
+                Приготовлено
+              </button>
+            </div>
+          </div>
+  
+          <div class="column">
+            <h3>Готові до виносу</h3>
+            <div v-for="(order, index) in completedList" :key="index">
+              <label>{{order.name}}</label>
+              <button @click="clear(index)" class="button">Подано</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <script>
+        const { createApp } = Vue
+  
+        const app = createApp({
+          data() {
+            return {
+              order: null,
+              waitingList: [],
+              processingList: [],
+              completedList: [],
+            }
+          },
+  
+          methods: {
+            addOrder() {
+              if (this.order) {
+                let element = this.order
+                this.waitingList.push({
+                  name: element,
+                })
+                this.order = null
+              }
+            },
+            inProcess(index) {
+              this.processingList.push(this.waitingList[index])
+              this.waitingList.splice(index, 1)
+            },
+            completedOrder(index) {
+              this.completedList.push(this.processingList[index])
+              this.processingList.splice(index, 1)
+            },
+            clear(index) {
+              this.completedList.splice(index, 1)
+            },
+          },
+          computed: {},
+        }).mount('#app')
+      </script>
+       <div class="btn">
+        <a class="button" href="./index.html">На головну</a>
+      </div>
+  </body>
+</html>

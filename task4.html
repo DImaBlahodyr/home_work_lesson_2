@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 4</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      body {
+        background-color: #405468;
+        font-size: 20px;
+        font-family: 'Times New Roman', Times, serif;
+      }
+      .header {
+        max-width: 1425px;
+        margin: 0 auto;
+        background-color: #00bd82;
+        padding: 20px;
+        text-align: center;
+        border-radius: 10px;
+        font-size: 30px;
+      }
+      .header > p {
+        font-size: 24px;
+      }
+      .content {
+        max-width: 600px;
+        margin: 10px auto;
+        background-color: #00bd82;
+        border-radius: 10px;
+        text-align: center;
+        padding: 5px 0;
+        font-size: 24px;
+      }
+      .content li{
+        margin-left: 200px;
+        text-align: left;
+      }
+      
+      .btn {
+        max-width: 300px;
+        margin: 30px auto;
+      }
+      .button {
+        display: block;
+        text-decoration: none;
+        color: black;
+        background-color: #405468;
+        margin: 15px 25px;
+        text-align: center;
+        font-size: 22px;
+        padding: 10px 20px;
+        border-radius: 7px;
+      }
+      .button:hover {
+        background-color: lightgrey;
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div>Задача 4</div>
+      <p>
+       Вивести список як маркований список з елементами у форматі (name: salary)
+      </p>
+    </div>
+    <div class="content">
+      <p>Відповідь до задачі:</p>
+      <div id="app">
+        <div v-for="worker in workersList" :key="worker.id">
+          <ul>
+            <li>{{worker.name}}: {{worker.salary}}</li>
+          </ul>
+        </div>
+      </div>
+  
+      <script>
+        const { createApp } = Vue
+  
+        const app = createApp({
+          data() {
+            return {
+              workersList: [
+                {
+                  id: '111',
+                  name: 'Іванов',
+                  salary: 10000,
+                },
+                {
+                  id: '111',
+                  name: 'Петров',
+                  salary: 20000,
+                },
+                {
+                  id: '111',
+                  name: 'Сидоров',
+                  salary: 50000,
+                },
+              ],
+            }
+          },
+  
+          methods: {},
+          computed: {},
+        }).mount('#app')
+      </script>
+       <div class="btn">
+        <a class="button" href="./index.html">На головну</a>
+      </div>
+  </body>
+</html>

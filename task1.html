@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 1</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      body {
+        background-color: #405468;
+        font-size: 20px;
+        font-family: 'Times New Roman', Times, serif;
+      }
+      .header {
+        max-width: 1425px;
+        margin: 0 auto;
+        background-color: #00bd82;
+        padding: 20px;
+        text-align: center;
+        border-radius: 10px;
+        font-size: 30px;
+      }
+      .header > p {
+        font-size: 24px;
+      }
+      .content {
+        max-width: 600px;
+        margin: 10px auto;
+        background-color: #00bd82;
+        border-radius: 10px;
+        text-align: center;
+        padding: 5px 0;
+        font-size: 24px;
+      }
+      .btn {
+        max-width: 300px;
+        margin: 30px auto;
+      }
+      .button {
+        display: block;
+        text-decoration: none;
+        color: black;
+        background-color: #405468;
+        margin: 15px 25px;
+        text-align: center;
+        font-size: 22px;
+        padding: 10px 20px;
+        border-radius: 7px;
+      }
+      .button:hover {
+        background-color: lightgrey;
+      }
+      .errorMessage1 {
+        background-color: green;
+      }
+      .errorMessage2 {
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div>Задача 1</div>
+      <p>
+       Вводимо логіна і пароль. Якщо логін вірний відображаємо
+          смайл. Якщо ні, то: <br />
+          1. якщо логін = Іван – колір повідомлення про помилку синій <br />
+          2. якщо хтось інший, то колір повідомлення червоний <br />
+      </p>
+    </div>
+    <div class="content">
+      <p>Відповідь до задачі:</p>
+      <div id="app">
+        <div>
+          <label
+            >Логін
+            <input type="text" v-model="login" />
+          </label>
+        </div>
+        <div>
+          <label
+            >Пароль
+            <input type="password" v-model="password" />
+          </label>
+        </div>
+        <div>
+          <button @click="userVerification">Go</button>
+          <button @click="clearInput">Очистити</button>
+          <div><img :src="link" /></div>
+          <div>
+            <span :class="statusColor">{{message}}</span>
+          </div>
+        </div>
+      </div>
+  
+      <script>
+        const { createApp } = Vue
+        const registeredUser = [
+          { registeredLogin: 'admin', registeredPassword: '1111' },
+        ]
+        const app = createApp({
+          data() {
+            return {
+              login: null,
+              password: null,
+              message: null,
+              link: null,
+            }
+          },
+          methods: {
+            userVerification() {
+              let check = registeredUser.find(
+                (el) =>
+                  el.registeredLogin === this.login &&
+                  el.registeredPassword === this.password
+              )
+              if (check) this.link = './img/img1.PNG'
+              else this.message = 'Помилка'
+            },
+  
+            clearInput() {
+              this.login = null
+              this.password = null
+              this.message = null
+              this.link = null
+            },
+          },
+          computed: {
+            statusColor() {
+              let selectedClass
+              if (this.login === 'ivan') selectedClass = 'errorMessage1'
+              else selectedClass = 'errorMessage2'
+              return selectedClass
+            },
+          },
+        }).mount('#app')
+      </script>
+       <div class="btn">
+        <a class="button" href="./index.html">На головну</a>
+      </div>
+  </body>
+</html>

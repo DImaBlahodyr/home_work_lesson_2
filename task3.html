@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 3</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      body {
+        background-color: #405468;
+        font-size: 20px;
+        font-family: 'Times New Roman', Times, serif;
+      }
+      .header {
+        max-width: 1425px;
+        margin: 0 auto;
+        background-color: #00bd82;
+        padding: 20px;
+        text-align: center;
+        border-radius: 10px;
+        font-size: 30px;
+      }
+      .header > p {
+        font-size: 24px;
+      }
+      .content {
+        max-width: 600px;
+        margin: 10px auto;
+        background-color: #00bd82;
+        border-radius: 10px;
+        text-align: center;
+        padding: 5px 0;
+        font-size: 24px;
+      }
+      .btn {
+        max-width: 300px;
+        margin: 30px auto;
+      }
+      .button {
+        display: block;
+        text-decoration: none;
+        color: black;
+        background-color: #405468;
+        margin: 15px 25px;
+        text-align: center;
+        font-size: 22px;
+        padding: 10px 20px;
+        border-radius: 7px;
+      }
+      .button:hover {
+        background-color: lightgrey;
+      }
+      .img {
+        height: 300px;
+      }
+      .rightAnswer {
+        border: 3px green solid;
+        padding: 10px;
+      }
+      .wrongAnswer {
+        border: 3px red solid;
+        padding: 10px;
+      }
+      .rightMessage {
+        color: green;
+      }
+      .wrongMessage {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div>Задача 3</div>
+      <p>
+        Елемент тренажера англійської. Виводимо зображення елемента
+          і слово. Користувач вводить відповідь. Якщо вірно – відтворюємо фразу
+          «Добре. Молодець!» (і додаємо зелену рамку до елемента), якщо ні - то
+          відтворюємо фразу «Невірно, спробуйте ще раз» (і додаємо червону
+          рамку).
+      </p>
+    </div>
+    <div class="content">
+      <p>Відповідь до задачі:</p>
+      <div id="app">
+        <div>{{start}}</div>
+      <div :class="statusColor">
+        <div>
+          <img class="img" :src="wordImg" />
+        </div>
+        <div>{{wordEng}}</div>
+        <div>
+          <label>
+            Ваш переклад:
+            <input type="text" v-model="userAnswer" />
+          </label>
+        </div>
+        <div>
+          <button @click="audit">Перевірити</button>
+          <button @click="getRandomWord">Наступне слово</button>
+        </div>
+      </div>
+      <div :class="statusMessageColor">{{message}}</div>
+    </div>
+
+    <script>
+      const { createApp } = Vue
+
+      const wordsList = [
+        {
+          imgSrc: './img/img4.jpg',
+          nameEnglish: 'Car',
+          nameUkrainian: 'Автомобіль',
+        },
+        {
+          imgSrc: './img/img5.jpg',
+          nameEnglish: 'Door',
+          nameUkrainian: 'Двері',
+        },
+        {
+          imgSrc: './img/img6.jpg',
+          nameEnglish: 'Table',
+          nameUkrainian: 'Стіл',
+        },
+        {
+          imgSrc: './img/img7.jpg',
+          nameEnglish: 'Kitchen',
+          nameUkrainian: 'Кухня',
+        },
+      ]
+
+      const app = createApp({
+        data() {
+          return {
+            start: null,
+            userAnswer: null,
+            correctAnswer: null,
+            message: null,
+            wordImg: null,
+            wordEng: null,
+            wordUkr: null,
+          }
+        },
+        mounted() {
+          this.start = this.getRandomWord()
+        },
+        methods: {
+          getRandomWord() {
+            this.correctAnswer = null
+            this.userAnswer = null
+            this.message = null
+            let randomWordIndex = Math.floor(
+              Math.random() * (wordsList.length + 1)
+            )
+            let selectedElement = wordsList[randomWordIndex]
+            this.wordImg = selectedElement.imgSrc
+            this.wordEng = selectedElement.nameEnglish
+            this.wordUkr = selectedElement.nameUkrainian
+          },
+          audit() {
+            if (this.userAnswer.toLowerCase() === this.wordUkr.toLowerCase()) {
+              this.correctAnswer = true
+              this.message = 'Добре. Молодець!'
+            } else {
+              this.correctAnswer = false
+              this.message = 'Невірно, спробуйте ще!'
+            }
+          },
+        },
+        computed: {
+          statusColor() {
+            let selectedClass
+            if (this.correctAnswer === true) selectedClass = 'rightAnswer'
+            else if (this.correctAnswer === false) selectedClass = 'wrongAnswer'
+            return selectedClass
+          },
+          statusMessageColor() {
+            let selectedMessageClass
+            if (this.correctAnswer === true)
+              selectedMessageClass = 'rightMessage'
+            else selectedMessageClass = 'wrongMessage'
+            return selectedMessageClass
+          },
+        },
+      }).mount('#app')
+    </script>
+       <div class="btn">
+        <a class="button" href="./index.html">На головну</a>
+      </div>
+  </body>
+</html>
